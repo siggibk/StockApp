@@ -1,10 +1,16 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import React from "react";
+import { ScrollView, StyleSheet, Text } from "react-native";
 
 export default class StockScreen extends React.Component {
   static navigationOptions = {
-    title: 'Stocks',
+    title: "Stocks",
+    headerStyle: {
+      backgroundColor: "#2982b8"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold"
+    }
   };
 
   render() {
@@ -12,7 +18,7 @@ export default class StockScreen extends React.Component {
       <ScrollView style={styles.container}>
         {/* Go ahead and delete ExpoLinksView and replace it with your
            * content, we just wanted to provide you with some helpful links */}
-      <Text>Stock screen</Text>
+        <Text>Stock screen</Text>
       </ScrollView>
     );
   }
@@ -22,6 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
-  },
+    backgroundColor: "#fff"
+  }
 });

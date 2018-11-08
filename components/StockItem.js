@@ -1,38 +1,43 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 class StockItem extends React.Component {
-    render() {
-      return (
-          <View style={styles.item}>
-            <Image
-              style={{ width: 50, height: 50 }}
-              source={{uri: 'https://storage.googleapis.com/iex/api/logos/AAPL.png'}}
-            />
-            
-            <Text style={styles.symbol}>Symbol</Text>
-            <Text style={styles.price}>24.7</Text>
-          </View>
-          
-      )
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.symbolContainer}>
+          <Text style={styles.symbol}>Symbol</Text>
+        </View>
+        <View style={styles.priceContainer}>
+          <Text style={styles.price}>24.8</Text>
+        </View>
+      </View>
+    );
   }
-  
+}
+
 const styles = StyleSheet.create({
-  item: {
-    marginTop:22,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    
+  container: {
+    marginTop: 22,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderWidth: 1
   },
   symbol: {
-    fontSize: 16,
-    color: 'rgb(107,50,50)'
+    fontSize: 16
   },
   price: {
-    paddingLeft:10,
-    fontSize: 14,
+    fontSize: 14
+  },
+  symbolContainer: {
+    color: "#2982b8",
+    borderWidth: 1
+  },
+  priceContainer: {
+    borderWidth: 1,
+    //textAlign: "right",
+    justifyContent: "flex-end"
   }
 });
 
