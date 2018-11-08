@@ -54,6 +54,7 @@ export default class HomeScreen extends React.Component {
             title="Search"
           />
           <View style={styles.stockItems}>
+            <Text style={styles.stockItemsTitle}>Most indexed companies</Text>
             <StockItem />
             <StockItem />
             <StockItem />
@@ -81,7 +82,9 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   contentContainer: {
-    paddingTop: 30
+    paddingTop: 30,
+    paddingLeft: 5,
+    paddingRight: 5
   },
   textInput: {
     height: 50,
@@ -91,5 +94,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 10
   },
-  stockItems: {}
+  stockItems: {},
+  stockItemsTitle: {
+    fontSize: 22,
+    paddingTop: 10
+  }
 });

@@ -6,10 +6,12 @@ class StockItem extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.symbolContainer}>
-          <Text style={styles.symbol}>Symbol</Text>
+          <Text style={styles.symbol}>AAPL</Text>
+          <Text style={styles.companyName}>Apple inc.</Text>
         </View>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>24.8</Text>
+          <Text style={{ color: "green" }}>4%</Text>
         </View>
       </View>
     );
@@ -25,10 +27,14 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   symbol: {
-    fontSize: 16
+    fontSize: 18,
+    fontWeight: "bold"
   },
   price: {
-    fontSize: 14
+    fontSize: 18
+  },
+  companyName: {
+    fontStyle: "italic"
   },
   symbolContainer: {
     color: "#2982b8",
