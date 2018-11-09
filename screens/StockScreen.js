@@ -29,7 +29,6 @@ export default class StockScreen extends React.Component {
         responseJson = await response.json();
       } catch (error) {
         console.log("symbol does not exist");
-        responseJson = "placeholder";
       }
 
       return new Promise(function(resolve, reject) {
@@ -56,45 +55,41 @@ export default class StockScreen extends React.Component {
   }
 
   render() {
-    if (this.state.logoUrl != "placeholder" && this.state.logoUrl != null) {
-      return (
-        <ScrollView style={styles.scrollViewContainer}>
-          <View style={styles.container}>
-            <View style={styles.companyLogo}>
-              <Image
-                style={styles.companyLogo}
-                source={{ uri: this.state.logoUrl }}
-              />
-            </View>
-            <View style={styles.companyName}>
-              <Text style={styles.companyNameText}>
-                {this.state.companyInfo.companyName}
+    return (
+      <ScrollView style={styles.scrollViewContainer}>
+        <View style={styles.container}>
+          <View style={styles.companyLogo}>
+            <Image
+              style={styles.companyLogo}
+              source={{ uri: this.state.logoUrl }}
+            />
+          </View>
+          <View style={styles.companyName}>
+            <Text style={styles.companyNameText}>
+              {this.state.companyInfo.companyName}
+            </Text>
+          </View>
+          <View style={styles.companyPrice}>
+            <Text style={styles.companyPriceText}>{this.state.price}</Text>
+          </View>
+          <View style={styles.companyInformation}>
+            <Text style={styles.companyInformationText}>
+              {this.state.companyInfo.description}
+            </Text>
+            <View style={styles.companyCEO}>
+              <Text style={styles.mediumInfoText}>
+                CEO: {this.state.companyInfo.CEO}
               </Text>
             </View>
-            <View style={styles.companyPrice}>
-              <Text style={styles.companyPriceText}>{this.state.price}</Text>
-            </View>
-            <View style={styles.companyInformation}>
-              <Text style={styles.companyInformationText}>
-                {this.state.companyInfo.description}
+            <View style={styles.companyType}>
+              <Text style={styles.mediumInfoText}>
+                Type of industry: {this.state.companyInfo.industry}
               </Text>
-              <View style={styles.companyCEO}>
-                <Text style={styles.mediumInfoText}>
-                  CEO: {this.state.companyInfo.CEO}
-                </Text>
-              </View>
-              <View style={styles.companyType}>
-                <Text style={styles.mediumInfoText}>
-                  Type of industry: {this.state.companyInfo.industry}
-                </Text>
-              </View>
             </View>
           </View>
-        </ScrollView>
-      );
-    } else {
-      return <Text style={styles.mediumInfoText}>Comany does not exists</Text>;
-    }
+        </View>
+      </ScrollView>
+    );
   }
 }
 

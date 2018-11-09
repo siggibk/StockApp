@@ -24,7 +24,8 @@ export default class HomeScreen extends React.Component {
       news: [],
       stocks: [],
       newsLoaded: false,
-      stocksLoaded: false
+      stocksLoaded: false,
+      validSearch: true
     };
   }
   static navigationOptions = {
@@ -38,11 +39,44 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+  isValid = async symbol => {
+    try {
+      const url = "https://api.iextrading.com/1.0/stock/" + symbol + "/price";
+      let response = await fetch(url).catch(function() {});
+      let responseJson;
+      let validStatus;
+      try {
+        responseJson = await response.json();
+        validStatus = true;
+        console.log("THIS IS VALID");
+      } catch (error) {
+        console.log("symbol does not exist");
+        validStatus = false;
+      }
+
+      return new Promise(function(resolve, reject) {
+        console.log("Returning " + validStatus);
+        resolve(validStatus);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   handleSymbolSearch = symbol => {
     console.log("Searching for symbol info..");
 
-    const stock = { symbol: symbol };
-    this.props.navigation.navigate("Stock", stock);
+    this.isValid(symbol)
+      .then(data => this.setState({ validSearch: data }))
+      .then(() => {
+        if (this.state.validSearch) {
+          const stock = { symbol: symbol };
+          console.log("here");
+          this.props.navigation.navigate("Stock", stock);
+        } else {
+          // red border
+        }
+      });
   };
 
   getLast5News = async () => {
@@ -103,14 +137,12 @@ export default class HomeScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <View style={{ flexDirection: "row" }}>
-            <SectorItem />
-            <SectorItem />
-            <SectorItem />
-          </View>
           <TextInput
             placeholder="Ex. aapl"
-            style={styles.textInput}
+            style={[
+              styles.textInput,
+              this.state.validSearch ? styles.textInput : styles.invalidSearch
+            ]}
             onChangeText={text => this.setState({ text })}
           />
           <Button
@@ -184,5 +216,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     //borderBottomWidth: 1,
     color: "#2982b8"
+  },
+  invalidSearch: {
+    borderColor: "red"
   }
 });
