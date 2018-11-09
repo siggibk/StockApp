@@ -34,7 +34,7 @@ export default class StockScreen extends React.Component {
     console.log("getting it: " + this.getPrice());
     return (
       <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksViehw ansd replace it with your
+        {/* Go ahead and delete ExdpoLinksViehw ansd replace it with your
          * content, we just wanted to provide you with some helpful links */}
         <Text>Stock screen</Text>
       </ScrollView>
