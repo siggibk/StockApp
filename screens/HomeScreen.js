@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: "Placeholder",
+      text: "",
       news: [],
       stocks: []
     };
@@ -39,9 +39,11 @@ export default class HomeScreen extends React.Component {
     }
   };
 
-  handleSymbolSearch = () => {
+  handleSymbolSearch = symbol => {
     console.log("Searching for symbol info..");
-    this.props.navigation.navigate("Stock");
+
+    const stock = { symbol: symbol };
+    this.props.navigation.navigate("Stock", stock);
   };
 
   getLast5News = async () => {
@@ -100,10 +102,14 @@ export default class HomeScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <TextInput placeholder="Ex. aapl" style={styles.textInput} />
+          <TextInput
+            placeholder="Ex. aapl"
+            style={styles.textInput}
+            onChangeText={text => this.setState({ text })}
+          />
           <Button
             style={styles.button}
-            onPress={this.handleSymbolSearch}
+            onPress={() => this.handleSymbolSearch(this.state.text)}
             color="#2982b8"
             title="Search"
           />

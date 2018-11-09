@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     paddingLeft: 4,
-    paddingRight: 4
+    paddingRight: 4,
+    borderRadius: 10
   },
   priceGain: {
     backgroundColor: "#55AE3A"
