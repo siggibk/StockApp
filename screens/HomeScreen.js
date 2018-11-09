@@ -14,7 +14,7 @@ import {
 
 import NewsList from "../components/NewsList";
 import StockList from "../components/StockList";
-import SectorItem from "../components/SectorItem";
+import SectorList from "../components/SectorList";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -23,13 +23,15 @@ export default class HomeScreen extends React.Component {
       text: "",
       news: [],
       stocks: [],
+      sectors: [],
       newsLoaded: false,
       stocksLoaded: false,
+      sectorsLoaded: false,
       validSearch: true
     };
   }
   static navigationOptions = {
-    title: "Stock lookup",
+    title: "Stock symbol lookup",
     headerStyle: {
       backgroundColor: "#2982b8"
     },
@@ -96,7 +98,7 @@ export default class HomeScreen extends React.Component {
   };
 
   getTopStocks = async () => {
-    var stocks = ["aapl", "fb", "tsla", "msft"];
+    var stocks = ["aapl", "fb", "tsla", "msft", "nvda"];
     var stocksData = [];
 
     for (var symbol of stocks) {
@@ -119,14 +121,38 @@ export default class HomeScreen extends React.Component {
     });
   };
 
+  getSectors = async () => {
+    const url =
+      "https://api.iextrading.com/1.0/stock/market/sector-performance";
+    console.log(url);
+    try {
+      let response = await fetch(url);
+      let responseJson = await response.json();
+
+      return new Promise(function(resolve, reject) {
+        //console.log(responseJson[0]);
+        resolve(responseJson);
+      });
+    } catch (error) {
+      console.log("ERROR HERE");
+      console.error(error);
+    }
+  };
+
   componentWillMount() {
     console.log("Fetching news..");
     this.getLast5News().then(data =>
       this.setState({ news: data, newsLoaded: true })
     );
     console.log("Fetching stocks..");
-    this.getTopStocks().then(data => this.setState({ stocks: data }));
+    this.getTopStocks().then(data =>
+      this.setState({ stocks: data, stocksLoaded: true })
+    );
 
+    console.log("Fetching sectors..");
+    this.getSectors().then(data =>
+      this.setState({ sectors: data, sectorsLoaded: true })
+    );
     //console.log(this.state.news);
   }
 
@@ -154,11 +180,20 @@ export default class HomeScreen extends React.Component {
           <View style={styles.stockItems}>
             <Text style={styles.ItemsTitle}>Most indexed companies</Text>
 
-            {this.state.newsLoaded ? (
+            {this.state.stocksLoaded ? (
               <StockList
                 navigation={this.props.navigation}
                 stocks={this.state.stocks}
               />
+            ) : (
+              <ActivityIndicator size="large" color="#2982b8" />
+            )}
+          </View>
+          <View style={styles.newsItems}>
+            <Text style={styles.ItemsTitle}>Sector performance</Text>
+
+            {this.state.sectorsLoaded ? (
+              <SectorList sectors={this.state.sectors} />
             ) : (
               <ActivityIndicator size="large" color="#2982b8" />
             )}

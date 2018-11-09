@@ -6,29 +6,40 @@ class SectorItem extends React.Component {
     super(props);
 
     this.state = {
-      dateTime: null,
-      headline: null,
-      source: null
+      name: "",
+      performance: 0.0,
+      gained: false
     };
   }
 
   componentDidMount() {
-    /*const { datetime, headline, source } = this.props.news;
+    const { name, performance } = this.props.sector;
+    var gained = parseFloat(performance) < 0 ? false : true;
 
     this.setState({
-      dateTime: datetime,
-      headline: headline,
-      source: source
+      name: name,
+      performance: performance * 100,
+      gained: gained
     });
-    */
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.headlineContainer}>
-          <Text style={styles.headline}> Communication Services </Text>
-          <Text style={styles.performance}> 1.2 </Text>
+          <Text style={styles.headline}> {this.state.name} </Text>
+        </View>
+        <View style={styles.performanceContainer}>
+          <Text style={styles.performance} />
+          <Text
+            style={[
+              styles.performance,
+              this.state.gained ? styles.sectoreGain : styles.sectorLoss
+            ]}
+          >
+            {" "}
+            {this.state.performance.toFixed(2)}%{" "}
+          </Text>
         </View>
       </View>
     );
@@ -38,20 +49,33 @@ class SectorItem extends React.Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    marginBottom: 15,
-    paddingBottom: 8,
     flexDirection: "row",
-    //justifyContent: "space-between",
-    alignItems: "center",
-    borderRightWidth: 1,
+    justifyContent: "space-between",
+    //alignItems: "center",
+    borderBottomWidth: 1,
     borderColor: "#C8C8C8"
   },
   performance: {
     fontWeight: "bold",
-    fontSize: 12
+    fontSize: 14,
+    paddingLeft: 4,
+    paddingRight: 4,
+    borderRadius: 10
   },
   headline: {
     fontSize: 16
+  },
+  headlineContainer: {
+    //flexDirection: "row"
+  },
+  performanceContainer: {
+    justifyContent: "flex-end"
+  },
+  sectoreGain: {
+    backgroundColor: "#55AE3A"
+  },
+  sectorLoss: {
+    backgroundColor: "#EE6363"
   }
 });
 
