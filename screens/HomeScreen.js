@@ -115,7 +115,10 @@ export default class HomeScreen extends React.Component {
           />
           <View style={styles.stockItems}>
             <Text style={styles.ItemsTitle}>Most indexed companies</Text>
-            <StockList stocks={this.state.stocks} />
+            <StockList
+              navigation={this.props.navigation}
+              stocks={this.state.stocks}
+            />
           </View>
           <View style={styles.newsItems}>
             <Text style={styles.ItemsTitle}>Latest market news</Text>

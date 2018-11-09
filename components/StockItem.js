@@ -13,6 +13,16 @@ class StockItem extends React.Component {
       gained: false
     };
   }
+  static navigationOptions = {
+    title: "Welcome"
+  };
+  handleSymbolSearch = symbolChar => {
+    const { navigate } = this.props.navigation;
+    //s
+    const stock = { symbol: symbolChar };
+    console.log("clicking Most indexed companie");
+    navigate("Stock", stock);
+  };
 
   componentDidMount() {
     const {
@@ -33,8 +43,11 @@ class StockItem extends React.Component {
   }
 
   render() {
+    //const { navigate } = this.props.navigation;
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => this.handleSymbolSearch(this.state.symbol)}
+      >
         <View style={styles.container}>
           <View style={styles.symbolContainer}>
             <Text style={styles.symbol}>{this.state.symbol}</Text>
