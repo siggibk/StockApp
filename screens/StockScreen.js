@@ -27,59 +27,7 @@ export default class StockScreen extends React.Component {
       let responseJson = await response.json();
 
       return new Promise(function(resolve, reject) {
-        //console.log(responseJson[0]);s
-        resolve(responseJson);
-      });
-    } catch (error) {
-      console.log("ERROR HERE");
-      console.error(error);
-    }
-  };
-
-  getCompanyInfo = async symbol => {
-    console.log(symbol);
-    const url = "https://api.iextrading.com/1.0/stock/" + symbol + "/company";
-    //const url = "https://api.iextrading.com/1.0/stock/market/news/last/5";sss
-    try {
-      let response = await fetch(url);
-      let responseJson = await response.json();
-
-      return new Promise(function(resolve, reject) {
-        //console.log(responseJson[0]);sssss
-        resolve(responseJson);
-      });
-    } catch (error) {
-      console.log("ERROR HERE");
-      console.error(error);
-    }
-  };
-
-  getCompanyLogo = async symbol => {
-    console.log(symbol);
-    const url = "https://api.iextrading.com/1.0/stock/" + symbol + "/logo";
-    try {
-      let response = await fetch(url);
-      let responseJson = await response.json();
-
-      return new Promise(function(resolve, reject) {
-        console.log(responseJson);
-        resolve(responseJson);
-      });
-    } catch (error) {
-      console.log("ERROR HERE");
-      console.error(error);
-    }
-  };
-
-  getCompanyPrice = async symbol => {
-    console.log(symbol);
-    const url = "https://api.iextrading.com/1.0/stock/" + symbol + "/price";
-    try {
-      let response = await fetch(url);
-      let responseJson = await response.json();
-
-      return new Promise(function(resolve, reject) {
-        console.log(responseJson);
+        //console.log(responseJson[0]);ss
         resolve(responseJson);
       });
     } catch (error) {
