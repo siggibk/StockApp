@@ -62,7 +62,7 @@ class StockItem extends React.Component {
             >
               {this.state.latestPrice}
             </Text>
-            <Text>Day chg: {this.state.changePercent}%</Text>
+            <Text>Day chg: {this.state.changePercent.toFixed(2)}%</Text>
           </View>
         </View>
       </TouchableOpacity>
