@@ -11,7 +11,7 @@ export default class StockScreen extends React.Component {
     };
   }
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.symbol}`,
+    title: `${navigation.state.params.symbol}`.toUpperCase(),
     headerStyle: {
       backgroundColor: "#2982b8"
     },
@@ -40,10 +40,13 @@ export default class StockScreen extends React.Component {
     console.log(this.props);
 
     const { symbol } = this.props.navigation.state.params;
+
     url = "https://api.iextrading.com/1.0/stock/" + symbol + "/company";
     this.getDataByUrl(url).then(data => this.setState({ companyInfo: data }));
+
     var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/logo";
     this.getDataByUrl(url).then(data => this.setState({ logoUrl: data.url }));
+
     url = "https://api.iextrading.com/1.0/stock/" + symbol + "/price";
     this.getDataByUrl(url).then(data => this.setState({ price: data }));
   }

@@ -9,15 +9,12 @@ import {
   View,
   TextInput,
   Button,
-  FlatList
+  ActivityIndicator
 } from "react-native";
-
-import StockItem from "../components/StockItem";
 
 import NewsList from "../components/NewsList";
 import StockList from "../components/StockList";
-
-//const dataService = require("../services/IEXservice");
+import SectorItem from "../components/SectorItem";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -25,7 +22,9 @@ export default class HomeScreen extends React.Component {
     this.state = {
       text: "",
       news: [],
-      stocks: []
+      stocks: [],
+      newsLoaded: false,
+      stocksLoaded: false
     };
   }
   static navigationOptions = {
@@ -88,7 +87,9 @@ export default class HomeScreen extends React.Component {
 
   componentWillMount() {
     console.log("Fetching news..");
-    this.getLast5News().then(data => this.setState({ news: data }));
+    this.getLast5News().then(data =>
+      this.setState({ news: data, newsLoaded: true })
+    );
     console.log("Fetching stocks..");
     this.getTopStocks().then(data => this.setState({ stocks: data }));
 
@@ -102,6 +103,11 @@ export default class HomeScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
+          <View style={{ flexDirection: "row" }}>
+            <SectorItem />
+            <SectorItem />
+            <SectorItem />
+          </View>
           <TextInput
             placeholder="Ex. aapl"
             style={styles.textInput}
@@ -115,14 +121,24 @@ export default class HomeScreen extends React.Component {
           />
           <View style={styles.stockItems}>
             <Text style={styles.ItemsTitle}>Most indexed companies</Text>
-            <StockList
-              navigation={this.props.navigation}
-              stocks={this.state.stocks}
-            />
+
+            {this.state.newsLoaded ? (
+              <StockList
+                navigation={this.props.navigation}
+                stocks={this.state.stocks}
+              />
+            ) : (
+              <ActivityIndicator size="large" color="#2982b8" />
+            )}
           </View>
           <View style={styles.newsItems}>
             <Text style={styles.ItemsTitle}>Latest market news</Text>
-            <NewsList news={this.state.news} />
+
+            {this.state.newsLoaded ? (
+              <NewsList news={this.state.news} />
+            ) : (
+              <ActivityIndicator size="large" color="#2982b8" />
+            )}
           </View>
         </ScrollView>
       </View>
