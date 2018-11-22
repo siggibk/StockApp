@@ -175,7 +175,7 @@ export default class HomeScreen extends React.Component {
             style={styles.button}
             onPress={() => this.handleSymbolSearch(this.state.text)}
             color="#1A4971"
-            title="Search"
+            title="Lookup"
           />
           <View style={styles.stockItems}>
             <Text style={styles.ItemsTitle}>Popular companies</Text>

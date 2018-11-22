@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import CompanyInfo from "../components/CompanyInfo";
+import FinancialInfo from "../components/FinancialInfo";
 
 export default class StockScreen extends React.Component {
   constructor(props) {
@@ -19,7 +20,9 @@ export default class StockScreen extends React.Component {
       price: 0,
       companyInfoLoaded: false,
       logoUrlLoaded: false,
-      priceLoaded: false
+      priceLoaded: false,
+      financialInfo: {},
+      financialInfoLoaded: false
     };
   }
   static navigationOptions = ({ navigation }) => ({
@@ -71,7 +74,10 @@ export default class StockScreen extends React.Component {
       this.setState({ price: data, priceLoaded: true })
     );
 
-    //url =
+    url = "https://api.iextrading.com/1.0/stock/" + symbol + "/stats";
+    this.getDataByUrl(url).then(data =>
+      this.setState({ financialInfo: data, financialInfoLoaded: true })
+    );
   }
 
   render() {
@@ -85,6 +91,11 @@ export default class StockScreen extends React.Component {
             price={this.state.price}
             logoUrl={this.state.logoUrl}
           />
+        ) : (
+          <ActivityIndicator size="large" color="#2982b8" />
+        )}
+        {this.state.financialInfoLoaded ? (
+          <FinancialInfo financials={this.state.financialInfo} />
         ) : (
           <ActivityIndicator size="large" color="#2982b8" />
         )}

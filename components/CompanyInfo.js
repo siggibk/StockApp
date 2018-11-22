@@ -11,8 +11,7 @@ class CompanyInfo extends React.Component {
       CEO: "",
       industry: "",
       logoUrl: "https://via.placeholder.com/150.png",
-      price: 0,
-      companyFinancials: {}
+      price: 0
     };
   }
 
@@ -58,7 +57,7 @@ class CompanyInfo extends React.Component {
           </View>
         </View>
 
-        <Text style={styles.sectionTitle}>General</Text>
+        <Text style={styles.sectionTitle}>About</Text>
         <View style={styles.companyInformation}>
           <Text style={styles.companyInformationText}>
             {this.state.description}
