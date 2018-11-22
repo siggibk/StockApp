@@ -33,9 +33,9 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Stock symbol lookup",
     headerStyle: {
-      backgroundColor: "#2982b8"
+      backgroundColor: "#1A4971"
     },
-    headerTintColor: "#fff",
+    headerTintColor: "#EFF8FF",
     headerTitleStyle: {
       fontWeight: "bold"
     }
@@ -174,11 +174,11 @@ export default class HomeScreen extends React.Component {
           <Button
             style={styles.button}
             onPress={() => this.handleSymbolSearch(this.state.text)}
-            color="#2982b8"
+            color="#1A4971"
             title="Search"
           />
           <View style={styles.stockItems}>
-            <Text style={styles.ItemsTitle}>Most indexed companies</Text>
+            <Text style={styles.ItemsTitle}>Popular companies</Text>
 
             {this.state.stocksLoaded ? (
               <StockList
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     paddingLeft: 10,
-    borderColor: "#668B8B"
+    borderColor: "#1A4971"
   },
   stockItems: {},
   ItemsTitle: {
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     paddingBottom: 1,
     marginBottom: 8,
     //borderBottomWidth: 1,
-    color: "#2982b8"
+    color: "#1A4971"
   },
   invalidSearch: {
     borderColor: "red"

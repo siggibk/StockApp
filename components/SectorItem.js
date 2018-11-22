@@ -49,11 +49,12 @@ class SectorItem extends React.Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
+    paddingBottom: 6,
     flexDirection: "row",
     justifyContent: "space-between",
     //alignItems: "center",
     borderBottomWidth: 1,
-    borderColor: "#C8C8C8"
+    borderColor: "#AAD4f5"
   },
   performance: {
     fontWeight: "bold",

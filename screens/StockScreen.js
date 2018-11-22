@@ -1,5 +1,14 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, Image, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  ActivityIndicator
+} from "react-native";
+
+import CompanyInfo from "../components/CompanyInfo";
 
 export default class StockScreen extends React.Component {
   constructor(props) {
@@ -7,15 +16,18 @@ export default class StockScreen extends React.Component {
     this.state = {
       companyInfo: {},
       logoUrl: "placeholder",
-      price: 0
+      price: 0,
+      companyInfoLoaded: false,
+      logoUrlLoaded: false,
+      priceLoaded: false
     };
   }
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.symbol}`.toUpperCase(),
     headerStyle: {
-      backgroundColor: "#2982b8"
+      backgroundColor: "#1A4971"
     },
-    headerTintColor: "#fff",
+    headerTintColor: "#EFF8FF",
     headerTitleStyle: {
       fontWeight: "bold"
     }
@@ -45,49 +57,37 @@ export default class StockScreen extends React.Component {
     const { symbol } = this.props.navigation.state.params;
 
     url = "https://api.iextrading.com/1.0/stock/" + symbol + "/company";
-    this.getDataByUrl(url).then(data => this.setState({ companyInfo: data }));
+    this.getDataByUrl(url).then(data =>
+      this.setState({ companyInfo: data, companyInfoLoaded: true })
+    );
 
     var url = "https://api.iextrading.com/1.0/stock/" + symbol + "/logo";
-    this.getDataByUrl(url).then(data => this.setState({ logoUrl: data.url }));
+    this.getDataByUrl(url).then(data =>
+      this.setState({ logoUrl: data.url, logoUrlLoaded: true })
+    );
 
     url = "https://api.iextrading.com/1.0/stock/" + symbol + "/price";
-    this.getDataByUrl(url).then(data => this.setState({ price: data }));
+    this.getDataByUrl(url).then(data =>
+      this.setState({ price: data, priceLoaded: true })
+    );
+
+    //url =
   }
 
   render() {
     return (
       <ScrollView style={styles.scrollViewContainer}>
-        <View style={styles.container}>
-          <View style={styles.companyLogo}>
-            <Image
-              style={styles.companyLogo}
-              source={{ uri: this.state.logoUrl }}
-            />
-          </View>
-          <View style={styles.companyName}>
-            <Text style={styles.companyNameText}>
-              {this.state.companyInfo.companyName}
-            </Text>
-          </View>
-          <View style={styles.companyPrice}>
-            <Text style={styles.companyPriceText}>{this.state.price}</Text>
-          </View>
-          <View style={styles.companyInformation}>
-            <Text style={styles.companyInformationText}>
-              {this.state.companyInfo.description}
-            </Text>
-            <View style={styles.companyCEO}>
-              <Text style={styles.mediumInfoText}>
-                CEO: {this.state.companyInfo.CEO}
-              </Text>
-            </View>
-            <View style={styles.companyType}>
-              <Text style={styles.mediumInfoText}>
-                Type of industry: {this.state.companyInfo.industry}
-              </Text>
-            </View>
-          </View>
-        </View>
+        {this.state.companyInfoLoaded &&
+        this.state.logoUrlLoaded &&
+        this.state.priceLoaded ? (
+          <CompanyInfo
+            companyInfo={this.state.companyInfo}
+            price={this.state.price}
+            logoUrl={this.state.logoUrl}
+          />
+        ) : (
+          <ActivityIndicator size="large" color="#2982b8" />
+        )}
       </ScrollView>
     );
   }
@@ -95,13 +95,14 @@ export default class StockScreen extends React.Component {
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "#fff"
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    //alignItems: "center",
+    //justifyContent: "center",
     padding: 26
   },
   companyLogo: {

@@ -28,7 +28,7 @@ class NewsItem extends React.Component {
     const { datetime, headline, source } = this.props.news;
 
     this.setState({
-      dateTime: datetime,
+      dateTime: datetime.substring(0, 10),
       headline: headline,
       source: source
     });

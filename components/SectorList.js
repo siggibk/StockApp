@@ -13,7 +13,7 @@ const SectorList = ({ sectors }) => (
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#F5F5F5"
+    backgroundColor: "#EFF8FF"
   }
 });
 export default SectorList;
